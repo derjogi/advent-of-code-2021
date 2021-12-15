@@ -2,7 +2,7 @@ fun main() {
 
     val bingoResults = playBingo(readInput("check_day_4"))
     println("Results: $bingoResults")
-    check(4512 == bingoResults)
+    check(1924 == bingoResults)
 
     val input = readInput("input_day_4")
     println(playBingo(input))
@@ -11,14 +11,20 @@ fun main() {
 
 fun playBingo(input: List<String>): Int {
     val (drawnNumbers, boards) = parseInput(input)
+    val boardsNotWonYet = (1..boards.size).toMutableSet()
     drawnNumbers.forEach { number ->
         println("\nNewly drawn number: $number")
         boards.forEach { board ->
             val hasCompleteRowOrColumn = board.drawNumberAndCheck(number)
             if (hasCompleteRowOrColumn) {
-                val score = board.getWinningScore(number)
-                println("Aaaand we have a WINNER!\n\nBoard:\n$board\nScore: $score")
-                return score
+                if (boardsNotWonYet.contains(board.boardIndex)) {
+                    boardsNotWonYet.remove(board.boardIndex)
+                }
+                if (boardsNotWonYet.isEmpty()) {
+                    val score = board.getWinningScore(number)
+                    println("Aaaand we have a WINNER!\n\nBoard:\n$board\nScore: $score")
+                    return score
+                }
             }
         }
     }
