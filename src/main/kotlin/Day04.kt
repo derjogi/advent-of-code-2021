@@ -22,7 +22,7 @@ fun playBingo(input: List<String>): Int {
                 }
                 if (boardsNotWonYet.isEmpty()) {
                     val score = board.getWinningScore(number)
-                    println("Aaaand we have a WINNER!\n\nBoard:\n$board\nScore: $score")
+                    println("Aaaand we have a LOOSER!\n\nBoard:\n$board\nScore: $score")
                     return score
                 }
             }
