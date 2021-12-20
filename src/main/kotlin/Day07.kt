@@ -1,6 +1,6 @@
 fun main() {
-    check(37 == crabPositions(readInput("check_day_7")))
-    println("Min moves required: ${crabPositions(readInput("input_day_7"))}")
+    check(168 == crabPositions(readInput("check_day_7")))
+    println("Min petrol required: ${crabPositions(readInput("input_day_7"))}")
 }
 
 fun crabPositions(input: List<String>): Int {
@@ -18,7 +18,7 @@ fun crabPositions(input: List<String>): Int {
     var posForLowest = 0
     for (position in (min..max)) {
         var sum = 0
-        horizontalPositions.forEach{ sum += Math.abs(it - position) }
+        horizontalPositions.forEach{ sum += kindaFactorialButNotQuiteThing(it, position) }
         moves[position] = sum
         if (sum < lowest) {
             lowest = sum
@@ -26,8 +26,13 @@ fun crabPositions(input: List<String>): Int {
         }
     }
 
-    println("All possible moves: $moves")
+    println("All possible petrol costs: $moves")
 
-    println("Position $posForLowest had the lowest necessary moves of $lowest")
+    println("Position $posForLowest had the lowest necessary costs of $lowest petrol")
     return lowest
+}
+
+private fun kindaFactorialButNotQuiteThing(it: Int, position: Int): Int {
+    val diff = Math.abs(it - position)
+    return (diff * (diff + 1)) / 2
 }
